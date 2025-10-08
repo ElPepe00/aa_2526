@@ -40,8 +40,13 @@ class Perceptron:
 
         """
         self.w_ = np.zeros(1 + X.shape[1])  # First position corresponds to threshold
-
-        # TODO: Put your code (fit algorithm)
+        
+        for _ in range(self.n_iter):
+            for i in range(X.shape[0]):
+                for j in range(X.shape[1]):
+                    pred = self.predict(X[i].reshape(1, -1)) # prediccio
+                    self.w_[j+1] += self.eta * (y[i] - pred) * X[i][j] # actualitzam pesos W
+                self.w_[0] += self.eta * (y[i] - self.predict(X[i].reshape(1, -1))) # Actualitzam threshold
 
 
     def predict(self, X):
@@ -50,7 +55,5 @@ class Perceptron:
             Second apply the step function
             Return a list with classes
         """
-
-        # TODO: Put your code
-
-        return np.random.randint(0, 2, size=X.shape[0])  # remove
+        z = np.dot(X, self.w_[1:]) + self.w_[0] # calcular z = X*w + threshold
+        return np.where(z >= 0, 1, -1) # retorna el valor 1 o -1 segons el valor de z

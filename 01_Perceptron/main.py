@@ -18,4 +18,14 @@ y_prediction = perceptron.predict(X)  # Prediu
 #  Resultats
 plt.figure(1)
 plt.scatter(X[:, 0], X[:, 1], c=y_prediction)  # Mostram el conjunt de mostres el color indica la classe
+
+# Pendent e intersecció de la recta
+w = perceptron.w_
+m = -w[1] / w[2] # pendent
+b = -w[0] / w[2] # intersecció amb l'eix y (bias)
+
+# Pintar la recta
+plt.axline((0, b), slope=m, color='b')
+
+# Mostrar Grafica
 plt.show()
